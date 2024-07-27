@@ -2,9 +2,7 @@ package com.mananluvtocode.SpringMVC.mapper;
 
 import com.mananluvtocode.SpringMVC.api.model.CategoryDTO;
 import com.mananluvtocode.SpringMVC.domain.Category;
-import com.mananluvtocode.SpringMVC.repositories.CategoryRepository;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
