@@ -1,7 +1,9 @@
 package com.mananluvtocode.SpringMVC.bootstrap;
 
 import com.mananluvtocode.SpringMVC.domain.Category;
+import com.mananluvtocode.SpringMVC.domain.Customer;
 import com.mananluvtocode.SpringMVC.repositories.CategoryRepository;
+import com.mananluvtocode.SpringMVC.repositories.CustomerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +15,11 @@ import java.util.List;
 public class Bootstrap implements CommandLineRunner {
     private final CategoryRepository categoryRepository;
     private final List<Category> categoryList = new ArrayList<>();
+    private final CustomerRepository customerRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository) {
+    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
         this.categoryRepository = categoryRepository;
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -38,5 +42,30 @@ public class Bootstrap implements CommandLineRunner {
 
         categoryRepository.saveAll(categoryList);
         System.out.println("Data loaded successfully and count is :- " + categoryRepository.count());
+
+
+        // For the Customer Class we have these classes that will be loaded into the database
+        List<Customer> customerList = new ArrayList<>();
+        Customer customer= new Customer();
+        customer.setFirstName("John");
+        customer.setLastName("Smith");
+        customer.setCustomer_url("https://www.google.com");
+        customerList.add(customer);
+
+        Customer customer1= new Customer();
+        customer1.setFirstName("Jane");
+        customer1.setLastName("Doe");
+        customer1.setCustomer_url("https://www.google.com");
+        customerList.add(customer1);
+
+        Customer customer2= new Customer();
+        customer2.setFirstName("Bob");
+        customer2.setLastName("Smith");
+        customer2.setCustomer_url("https://www.google.com");
+        customerList.add(customer2);
+
+        customerRepository.saveAll(customerList);
+        System.out.println("Data loaded successfully and count is :- " + customerRepository.count());
+
     }
 }
