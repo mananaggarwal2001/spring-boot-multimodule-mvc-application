@@ -24,6 +24,38 @@ public class Bootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        loadCategories();
+
+        // For the Customer Class we have these classes that will be loaded into the database
+        loadCustomers();
+
+    }
+
+    private void loadCustomers() {
+        List<Customer> customerList = new ArrayList<>();
+        Customer customer = new Customer();
+        customer.setFirstName("John");
+        customer.setLastName("Smith");
+        customer.setCustomer_url("https://www.google.com");
+        customerList.add(customer);
+
+        Customer customer1 = new Customer();
+        customer1.setFirstName("Jane");
+        customer1.setLastName("Doe");
+        customer1.setCustomer_url("https://www.google.com");
+        customerList.add(customer1);
+
+        Customer customer2 = new Customer();
+        customer2.setFirstName("Bob");
+        customer2.setLastName("Smith");
+        customer2.setCustomer_url("https://www.google.com");
+        customerList.add(customer2);
+
+        customerRepository.saveAll(customerList);
+        System.out.println("Data loaded successfully and count is :- " + customerRepository.count());
+    }
+
+    private void loadCategories() {
         Category dried = new Category();
         dried.setName("Dried");
         Category wet = new Category();
@@ -42,30 +74,5 @@ public class Bootstrap implements CommandLineRunner {
 
         categoryRepository.saveAll(categoryList);
         System.out.println("Data loaded successfully and count is :- " + categoryRepository.count());
-
-
-        // For the Customer Class we have these classes that will be loaded into the database
-        List<Customer> customerList = new ArrayList<>();
-        Customer customer= new Customer();
-        customer.setFirstName("John");
-        customer.setLastName("Smith");
-        customer.setCustomer_url("https://www.google.com");
-        customerList.add(customer);
-
-        Customer customer1= new Customer();
-        customer1.setFirstName("Jane");
-        customer1.setLastName("Doe");
-        customer1.setCustomer_url("https://www.google.com");
-        customerList.add(customer1);
-
-        Customer customer2= new Customer();
-        customer2.setFirstName("Bob");
-        customer2.setLastName("Smith");
-        customer2.setCustomer_url("https://www.google.com");
-        customerList.add(customer2);
-
-        customerRepository.saveAll(customerList);
-        System.out.println("Data loaded successfully and count is :- " + customerRepository.count());
-
     }
 }

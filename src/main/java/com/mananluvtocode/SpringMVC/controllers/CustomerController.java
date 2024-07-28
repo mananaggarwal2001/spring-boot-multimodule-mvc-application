@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/customers/")
@@ -28,5 +27,4 @@ public class CustomerController {
     ResponseEntity<CustomerDTO> getCustomerByFirstName(@PathVariable String firstName) {
         return new ResponseEntity<>(customerService.getCustomerByFirstName(firstName), HttpStatus.OK);
     }
-
 }

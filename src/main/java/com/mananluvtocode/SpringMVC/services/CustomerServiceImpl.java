@@ -32,6 +32,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomerByFirstName(String firstName) {
-        return customerMapper.customerToCustomerDTO(customerRepository.findByFirstName(firstName));
+        return customerMapper
+                .customerToCustomerDTO(customerRepository
+                        .findByFirstName(firstName));
     }
 }

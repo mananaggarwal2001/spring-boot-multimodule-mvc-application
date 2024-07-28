@@ -1,5 +1,4 @@
 package com.mananluvtocode.SpringMVC.repositories;
-
 import com.mananluvtocode.SpringMVC.domain.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
