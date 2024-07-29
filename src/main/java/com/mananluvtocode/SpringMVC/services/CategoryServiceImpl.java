@@ -1,6 +1,7 @@
 package com.mananluvtocode.SpringMVC.services;
 
 import com.mananluvtocode.SpringMVC.api.model.CategoryDTO;
+import com.mananluvtocode.SpringMVC.domain.Category;
 import com.mananluvtocode.SpringMVC.mapper.CategoryMapper;
 import com.mananluvtocode.SpringMVC.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO getCategoryByName(String categoryName) {
-        return categoryMapper.categoryToCategoryDTO(categoryRepository.findByName(categoryName));
+        Category category = categoryRepository.findByName(categoryName);
+        if (category == null) {
+            throw new ResourceNotFoundException();
+        }
+        return categoryMapper.categoryToCategoryDTO(category);
     }
 }

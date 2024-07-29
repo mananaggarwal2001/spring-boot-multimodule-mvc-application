@@ -8,6 +8,7 @@
 - How to Use Mapper for mapping the DTO with the entity class
 - How to get Response using the response Entity.
 - How to convert the POJO class to the JSON manually using the Jackson class which is `ObjectMapper Class`. We can use this class for converting any class into the JSON using this class and it's also support the jackson binding.
+- `@RestController` is the annotation which provides the combination of both which is controller and the Response Body but in controller we are not given the response body.
 #### New Dependencies
 ```angular2html
 - MapStruct for mapping classes automatically.

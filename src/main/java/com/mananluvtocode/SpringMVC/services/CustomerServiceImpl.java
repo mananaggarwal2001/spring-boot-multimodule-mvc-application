@@ -39,9 +39,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomerByFirstName(String firstName) {
-        return customerMapper
-                .customerToCustomerDTO(customerRepository
-                        .findByFirstName(firstName));
+        Customer customer = customerRepository.findByFirstName(firstName);
+        if (customer == null) {
+            throw new ResourceNotFoundException();
+        }
+        return customerMapper.customerToCustomerDTO(customer);
     }
 
     @Override
@@ -81,7 +83,7 @@ public class CustomerServiceImpl implements CustomerService {
             CustomerDTO resultDTOClass = customerMapper.customerToCustomerDTO(customerElement);
             resultDTOClass.setCustomer_url(customerUrlSetter(customerElement.getId()));
             return resultDTOClass;
-        }).orElseThrow(RuntimeException::new);
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -92,7 +94,7 @@ public class CustomerServiceImpl implements CustomerService {
             resultCustomer = foundCustomer.get();
             customerRepository.delete(resultCustomer);
         } else {
-            throw new RuntimeException("Customer Not Found for this id:- " + id);
+            throw new ResourceNotFoundException();
         }
     }
 }

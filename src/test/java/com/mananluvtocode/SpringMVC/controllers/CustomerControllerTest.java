@@ -6,6 +6,7 @@ import com.mananluvtocode.SpringMVC.api.model.CustomerDTO;
 import com.mananluvtocode.SpringMVC.domain.Customer;
 import com.mananluvtocode.SpringMVC.repositories.CustomerRepository;
 import com.mananluvtocode.SpringMVC.services.CustomerService;
+import com.mananluvtocode.SpringMVC.services.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,8 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -42,7 +42,7 @@ class CustomerControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         mapper = new ObjectMapper();
-        mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(customerController).setControllerAdvice(new RestResponseEntityHandler()).build();
     }
 
     @Test
@@ -155,5 +155,12 @@ class CustomerControllerTest {
         mockMvc.perform(delete("/api/v1/customers/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         verify(customerService).deleteCustomerById(anyLong());
+    }
+
+    @Test
+    void resourceNotFoundException() throws Exception {
+        when(customerService.getCustomerByFirstName(anyString())).thenThrow(ResourceNotFoundException.class);
+        mockMvc.perform(get("/api/v1/customers/foobar"))
+                .andExpect(status().isNotFound());
     }
 }
