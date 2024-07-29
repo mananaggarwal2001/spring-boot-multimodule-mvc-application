@@ -1,12 +1,12 @@
 package com.mananluvtocode.SpringMVC.services;
 
 import com.mananluvtocode.SpringMVC.api.model.CustomerDTO;
+import com.mananluvtocode.SpringMVC.domain.Customer;
 import com.mananluvtocode.SpringMVC.mapper.CustomerMapper;
 import com.mananluvtocode.SpringMVC.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -35,5 +35,14 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper
                 .customerToCustomerDTO(customerRepository
                         .findByFirstName(firstName));
+    }
+
+    @Override
+    public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+        Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
+        Customer savedCustomer = customerRepository.save(customer);
+        savedCustomer.setCustomer_url("/api/v1/customers/" + savedCustomer.getId());
+        System.out.println(savedCustomer);
+        return customerMapper.customerToCustomerDTO(savedCustomer);
     }
 }

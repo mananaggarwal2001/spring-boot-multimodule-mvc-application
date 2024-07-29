@@ -8,4 +8,6 @@ public interface CustomerService {
     List<CustomerDTO> getAllCustomers();
 
     CustomerDTO getCustomerByFirstName(String firstName);
+
+    CustomerDTO createNewCustomer(CustomerDTO customerDTO);
 }
