@@ -7,7 +7,6 @@ import com.mananluvtocode.SpringMVC.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -59,5 +58,20 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setId(id);
         return saveAndReturnDTO(customer);
+    }
+
+    // In this function patchCustomer we will update the required fields that are send by the user rest we will leave adjatise as they are and we don't touch those fields.
+    // In this function we will target only the certain fields for updating those fields only rest we will not touch those fields and we will leave them adjatise.
+    @Override
+    public CustomerDTO patchCustomer(Long id, CustomerDTO customerDTO) {
+        return customerRepository.findById(id).map(customerElement -> {
+            if (customerElement.getFirstName() != null && customerDTO.getFirstName() != null) {
+                customerElement.setFirstName(customerDTO.getFirstName());
+            }
+            if (customerElement.getLastName() != null && customerDTO.getLastName() != null) {
+                customerElement.setLastName(customerDTO.getLastName());
+            }
+            return customerMapper.customerToCustomerDTO(customerRepository.save(customerElement));
+        }).orElseThrow(RuntimeException::new);
     }
 }
