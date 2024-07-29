@@ -7,6 +7,7 @@ import com.mananluvtocode.SpringMVC.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -65,13 +66,27 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO patchCustomer(Long id, CustomerDTO customerDTO) {
         return customerRepository.findById(id).map(customerElement -> {
-            if (customerElement.getFirstName() != null && customerDTO.getFirstName() != null) {
+            if (customerElement.getFirstName() != null && (customerDTO.getFirstName() != null)) {
                 customerElement.setFirstName(customerDTO.getFirstName());
             }
             if (customerElement.getLastName() != null && customerDTO.getLastName() != null) {
                 customerElement.setLastName(customerDTO.getLastName());
             }
-            return customerMapper.customerToCustomerDTO(customerRepository.save(customerElement));
+            CustomerDTO resultDTOClass = customerMapper.customerToCustomerDTO(customerElement);
+            resultDTOClass.setCustomer_url("/api/v1/customers/" + resultDTOClass.getId());
+            return resultDTOClass;
         }).orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public void deleteCustomerById(Long id) {
+        Optional<Customer> foundCustomer = customerRepository.findById(id);
+        Customer resultCustomer = null;
+        if (foundCustomer.isPresent()) {
+            resultCustomer = foundCustomer.get();
+            customerRepository.delete(resultCustomer);
+        } else {
+            throw new RuntimeException("Customer Not Found for this id:- " + id);
+        }
     }
 }

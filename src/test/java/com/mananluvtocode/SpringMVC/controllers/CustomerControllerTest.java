@@ -1,5 +1,6 @@
 package com.mananluvtocode.SpringMVC.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mananluvtocode.SpringMVC.api.model.CustomerDTO;
 import com.mananluvtocode.SpringMVC.domain.Customer;
@@ -20,6 +21,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -122,5 +124,36 @@ class CustomerControllerTest {
                 .andReturn().getResponse().getContentAsString();
         System.out.println(responseResult);
 
+    }
+
+    @Test
+    void testPatchCustomer() throws Exception {
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstName("Manan");
+        customerDTO.setLastName("Aggarwal");
+        CustomerDTO returnedCustomer = new CustomerDTO();
+        returnedCustomer.setFirstName(customerDTO.getFirstName());
+        returnedCustomer.setLastName(customerDTO.getLastName());
+        returnedCustomer.setCustomer_url("/api/v1/customers/1");
+        returnedCustomer.setId(1L);
+        String resultMapper = mapper.writeValueAsString(customerDTO);
+        when(customerService.patchCustomer(1L, customerDTO)).thenReturn(returnedCustomer);
+
+        String responseString = mockMvc.perform(patch("/api/v1/customers/1")
+                        .contentType(MediaType.APPLICATION_JSON).content(resultMapper))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.firstName").value(returnedCustomer.getFirstName()))
+                .andExpect(jsonPath("$.lastName").value(returnedCustomer.getLastName()))
+                .andExpect(jsonPath("$.customer_url").value(returnedCustomer.getCustomer_url()))
+                .andReturn().getResponse().getContentAsString();
+        System.out.println("The Response of this Request is:- ");
+        System.out.println(responseString);
+    }
+
+    @Test
+    void DeleteCustomer() throws Exception {
+        mockMvc.perform(delete("/api/v1/customers/1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        verify(customerService).deleteCustomerById(anyLong());
     }
 }
