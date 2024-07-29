@@ -1,6 +1,7 @@
 package com.mananluvtocode.SpringMVC.services;
 
 import com.mananluvtocode.SpringMVC.api.model.CustomerDTO;
+import com.mananluvtocode.SpringMVC.controllers.CustomerController;
 import com.mananluvtocode.SpringMVC.domain.Customer;
 import com.mananluvtocode.SpringMVC.mapper.CustomerMapper;
 import com.mananluvtocode.SpringMVC.repositories.CustomerRepository;
@@ -16,6 +17,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     // for changing the DTO class to the original class while the program is running
     private final CustomerMapper customerMapper;
+
+    // for defining the common url we have this function for handling the setting the url which is :-
+    private String customerUrlSetter(Long id) {
+        return CustomerController.BASE_URL + id;
+    }
 
     public CustomerServiceImpl(CustomerRepository customerRepository, CustomerMapper customerMapper) {
         this.customerRepository = customerRepository;
@@ -42,13 +48,13 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         Customer savedCustomer = customerRepository.save(customer);
-        savedCustomer.setCustomer_url("/api/v1/customers/" + savedCustomer.getId());
+        savedCustomer.setCustomer_url(customerUrlSetter(savedCustomer.getId()));
         System.out.println(savedCustomer);
         return customerMapper.customerToCustomerDTO(savedCustomer);
     }
 
     private CustomerDTO saveAndReturnDTO(Customer customer) {
-        customer.setCustomer_url("/api/v1/customers/" + customer.getId());
+        customer.setCustomer_url(customerUrlSetter(customer.getId()));
         Customer savedCustomer = customerRepository.save(customer);
         return customerMapper.customerToCustomerDTO(savedCustomer);
     }
@@ -73,7 +79,7 @@ public class CustomerServiceImpl implements CustomerService {
                 customerElement.setLastName(customerDTO.getLastName());
             }
             CustomerDTO resultDTOClass = customerMapper.customerToCustomerDTO(customerElement);
-            resultDTOClass.setCustomer_url("/api/v1/customers/" + resultDTOClass.getId());
+            resultDTOClass.setCustomer_url(customerUrlSetter(customerElement.getId()));
             return resultDTOClass;
         }).orElseThrow(RuntimeException::new);
     }

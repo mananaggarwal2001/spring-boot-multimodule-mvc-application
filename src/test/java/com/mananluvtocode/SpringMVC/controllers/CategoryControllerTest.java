@@ -33,7 +33,6 @@ class CategoryControllerTest {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(categoryController).build();
     }
-
     @Test
     void getAllCategoriesList() throws Exception {
         CategoryDTO categoryDTO = new CategoryDTO();
