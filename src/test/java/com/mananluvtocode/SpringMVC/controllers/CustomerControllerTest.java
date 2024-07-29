@@ -10,21 +10,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.json.BasicJsonParser;
-import org.springframework.boot.json.JsonParser;
-import org.springframework.boot.test.json.JsonContent;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import javax.print.attribute.standard.Media;
-import java.lang.module.Configuration;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -101,6 +96,31 @@ class CustomerControllerTest {
                 .andReturn().getResponse().getContentAsString();
 
         System.out.println("The response of this request is :- " + response);
+
+    }
+
+    // for checking for the update operation
+    @Test
+    void testUpdateCustomer() throws Exception {
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstName("Flinder Super Doe");
+        customerDTO.setLastName("Doe");
+
+        CustomerDTO returnDTO = new CustomerDTO();
+        returnDTO.setFirstName(customerDTO.getFirstName());
+        returnDTO.setLastName(customerDTO.getLastName());
+        returnDTO.setCustomer_url("/api/v1/customers/1");
+
+        String finalvalue = mapper.writeValueAsString(customerDTO);
+        when(customerService.saveCustomerByDTO(anyLong(), any(CustomerDTO.class))).thenReturn(returnDTO);
+        String responseResult = mockMvc.perform(put("/api/v1/customers/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(finalvalue))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.firstName").value(customerDTO.getFirstName()))
+                .andExpect(jsonPath("$.customer_url").value("/api/v1/customers/1"))
+                .andReturn().getResponse().getContentAsString();
+        System.out.println(responseResult);
 
     }
 }

@@ -7,6 +7,7 @@ import com.mananluvtocode.SpringMVC.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -44,5 +45,19 @@ public class CustomerServiceImpl implements CustomerService {
         savedCustomer.setCustomer_url("/api/v1/customers/" + savedCustomer.getId());
         System.out.println(savedCustomer);
         return customerMapper.customerToCustomerDTO(savedCustomer);
+    }
+
+    private CustomerDTO saveAndReturnDTO(Customer customer) {
+        customer.setCustomer_url("/api/v1/customers/" + customer.getId());
+        Customer savedCustomer = customerRepository.save(customer);
+        return customerMapper.customerToCustomerDTO(savedCustomer);
+    }
+
+    @Override
+    public CustomerDTO saveCustomerByDTO(Long id, CustomerDTO customerDTO) {
+
+        Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
+        customer.setId(id);
+        return saveAndReturnDTO(customer);
     }
 }
