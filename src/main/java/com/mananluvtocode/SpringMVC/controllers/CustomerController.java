@@ -5,8 +5,6 @@ import com.mananluvtocode.SpringMVC.api.model.CustomerListDTO;
 import com.mananluvtocode.SpringMVC.domain.Customer;
 import com.mananluvtocode.SpringMVC.services.CustomerService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -54,7 +52,7 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.OK)
     CustomerDTO updatePatchCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
         // return new ResponseEntity<>(customerService.patchCustomer(id, customerDTO), HttpStatus.OK);
-        return customerService.saveCustomerByDTO(id, customerDTO);
+        return customerService.patchCustomer(id, customerDTO);
     }
 
     @DeleteMapping("{id}")
