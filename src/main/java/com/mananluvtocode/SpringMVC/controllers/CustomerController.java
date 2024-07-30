@@ -1,8 +1,6 @@
 package com.mananluvtocode.SpringMVC.controllers;
-
 import com.mananluvtocode.SpringMVC.api.model.CustomerDTO;
 import com.mananluvtocode.SpringMVC.api.model.CustomerListDTO;
-import com.mananluvtocode.SpringMVC.domain.Customer;
 import com.mananluvtocode.SpringMVC.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

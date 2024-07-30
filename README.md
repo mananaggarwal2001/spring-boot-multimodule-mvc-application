@@ -10,6 +10,7 @@
 - How to convert the POJO class to the JSON manually using the Jackson class which is `ObjectMapper Class`. We can use this class for converting any class into the JSON using this class and it's also support the jackson binding.
 - `@RestController` is the annotation which provides the combination of both which is controller and the Response Body but in controller we are not given the response body.
 - `given()` is same as the `when()` just the difference is `when()` syntax uses the realtime objects and given() uses the behavioural Driven syntax.
+- I learned about one more concept which is `swagger UI`, which is used for showing the REST API's in the web. It also helps in doing the refactoring of Web API and also help in testing the Web API's also.
 #### New Dependencies
 ```angular2html
 - MapStruct for mapping classes automatically when the project is building
