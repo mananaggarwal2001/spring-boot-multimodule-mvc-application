@@ -15,4 +15,5 @@
 ```angular2html
 - MapStruct for mapping classes automatically when the project is building
 - H2 Database for storing the data temporary when the application is in the running instance.
+- Swagger UI for showing the API in website and for testing API's also.
 ```
