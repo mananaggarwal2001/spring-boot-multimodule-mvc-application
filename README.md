@@ -9,8 +9,9 @@
 - How to get Response using the response Entity.
 - How to convert the POJO class to the JSON manually using the Jackson class which is `ObjectMapper Class`. We can use this class for converting any class into the JSON using this class and it's also support the jackson binding.
 - `@RestController` is the annotation which provides the combination of both which is controller and the Response Body but in controller we are not given the response body.
+- `given()` is same as the `when()` just the difference is `when()` syntax uses the realtime objects and given() uses the behavioural Driven syntax.
 #### New Dependencies
 ```angular2html
-- MapStruct for mapping classes automatically.
+- MapStruct for mapping classes automatically when the project is building
 - H2 Database for storing the data temporary when the application is in the running instance.
 ```
