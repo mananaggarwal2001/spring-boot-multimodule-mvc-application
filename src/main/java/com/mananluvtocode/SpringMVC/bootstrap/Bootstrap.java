@@ -2,8 +2,10 @@ package com.mananluvtocode.SpringMVC.bootstrap;
 
 import com.mananluvtocode.SpringMVC.domain.Category;
 import com.mananluvtocode.SpringMVC.domain.Customer;
+import com.mananluvtocode.SpringMVC.domain.Vendors;
 import com.mananluvtocode.SpringMVC.repositories.CategoryRepository;
 import com.mananluvtocode.SpringMVC.repositories.CustomerRepository;
+import com.mananluvtocode.SpringMVC.repositories.VendorRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,10 +18,12 @@ public class Bootstrap implements CommandLineRunner {
     private final CategoryRepository categoryRepository;
     private final List<Category> categoryList = new ArrayList<>();
     private final CustomerRepository customerRepository;
+    private final VendorRepository vendorRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
+    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository, VendorRepository vendorRepository) {
         this.categoryRepository = categoryRepository;
         this.customerRepository = customerRepository;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
@@ -29,6 +33,39 @@ public class Bootstrap implements CommandLineRunner {
         // For the Customer Class we have these classes that will be loaded into the database
         loadCustomers();
 
+        loadVendors();
+
+    }
+
+    private void loadVendors() {
+        List<Vendors> vendorsList = new ArrayList<>();
+        Vendors vendors = new Vendors();
+        vendors.setName("Manan");
+        vendors.setSelf_link("/mananluvtocode/");
+        vendorsList.add(vendors);
+        Vendors vendors1 = new Vendors();
+        vendors1.setName("Super");
+        vendors1.setSelf_link("/supermanluvtocode/");
+        vendorsList.add(vendors1);
+        Vendors vendors2 = new Vendors();
+        vendors2.setName("Chinki");
+        vendors2.setSelf_link("/chinkimanluvtocode/");
+        vendorsList.add(vendors2);
+        Vendors vendors3 = new Vendors();
+        vendors3.setName("Michelle");
+        vendors3.setSelf_link("/michellemanluvtocode/");
+        vendorsList.add(vendors3);
+        Vendors vendors4 = new Vendors();
+        vendors4.setName("David");
+        vendors4.setSelf_link("/davidmanluvtocode/");
+        vendorsList.add(vendors4);
+        Vendors vendors5 = new Vendors();
+        vendors5.setName("Jack");
+        vendors5.setSelf_link("/jackmanluvtocode/");
+        vendorsList.add(vendors5);
+
+        vendorRepository.saveAll(vendorsList);
+        System.out.println("Vendor list Count is :- " + vendorRepository.count());
     }
 
     private void loadCustomers() {
