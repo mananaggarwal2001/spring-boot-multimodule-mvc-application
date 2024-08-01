@@ -13,6 +13,7 @@
 - I learned about one more concept which is `swagger UI`, which is used for showing the REST API's in the web. It also helps in doing the refactoring of Web API and also help in testing the Web API's also.
 - This become a multimodule spring project for holding the multiple modules which are the child module of this parent for doing the work.
 - Multimodule build is used for doing the development process separately.
+- I also learned that how to use the Jaxb for generating the java source code using the XML output file in the separate module for doing the work.
 #### New Dependencies
 ```angular2html
 - MapStruct for mapping classes automatically when the project is building
