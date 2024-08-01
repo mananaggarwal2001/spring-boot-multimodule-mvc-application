@@ -49,7 +49,7 @@ class VendorControllerTest {
     void getAllVendors() throws Exception {
         List<VendorDTO> vendorDTOList = Arrays.asList(new VendorDTO(), new VendorDTO(), new VendorDTO());
         when(vendorService.getAllVendors()).thenReturn(vendorDTOList);
-        mockMvc.perform(get("/api/v1/vendors/").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/v1/vendors/").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.vendors", hasSize(3)));
     }
@@ -86,7 +86,7 @@ class VendorControllerTest {
         String resultObject = objectMapper.writeValueAsString(vendor);
         when(vendorService.updateVendor(anyLong(), any(VendorDTO.class))).thenReturn(returnedVendor);
         String returnedResponse = mockMvc.perform(put("/api/v1/vendors/1")
-                        .contentType(MediaType.APPLICATION_JSON).content(resultObject))
+                        .contentType(MediaType.APPLICATION_JSON).content(resultObject).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(vendor.getName()))
                 .andExpect(jsonPath("$.self_link").value("/api/vendors/1"))
@@ -113,7 +113,7 @@ class VendorControllerTest {
         resultantVendor.setSelf_link("/api/vendors/" + resultantVendor.getId());
         when(vendorService.patchVendor(anyLong(), any(VendorDTO.class))).thenReturn(resultantVendor);
         String result = mockMvc.perform(patch("/api/v1/vendors/1").contentType(MediaType.APPLICATION_JSON)
-                        .content(vendorString))
+                        .content(vendorString).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(vendorDTO.getName()))
                 .andExpect(jsonPath("$.self_link").value("/api/vendors/1"))

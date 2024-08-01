@@ -50,7 +50,7 @@ class CustomerControllerTest {
         List<CustomerDTO> customerList = Arrays.asList(new CustomerDTO(), new CustomerDTO(), new CustomerDTO());
         when(customerService.getAllCustomers()).thenReturn(customerList);
         mockMvc.perform(get("/api/v1/customers/")
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.customers", hasSize(3)));
     }
@@ -61,7 +61,8 @@ class CustomerControllerTest {
         customerDTO.setFirstName("John");
         customerDTO.setLastName("Doe");
         when(customerService.getCustomerByFirstName("John")).thenReturn(customerDTO);
-        mockMvc.perform(get("/api/v1/customers/John").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/v1/customers/John")
+                        .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName").value("John"));
     }
@@ -94,7 +95,7 @@ class CustomerControllerTest {
 //                .andExpect(jsonPath("$.customer_url").value(returnDTO.getCustomer_url()));
 
         String response = mockMvc.perform(post("/api/v1/customers/")
-                        .contentType(MediaType.APPLICATION_JSON).content(finalvalue))
+                        .contentType(MediaType.APPLICATION_JSON).content(finalvalue).accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
 
         System.out.println("The response of this request is :- " + response);
@@ -117,6 +118,7 @@ class CustomerControllerTest {
         when(customerService.saveCustomerByDTO(anyLong(), any(CustomerDTO.class))).thenReturn(returnDTO);
         String responseResult = mockMvc.perform(put("/api/v1/customers/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
                         .content(finalvalue))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName").value(customerDTO.getFirstName()))
@@ -140,7 +142,7 @@ class CustomerControllerTest {
         when(customerService.patchCustomer(1L, customerDTO)).thenReturn(returnedCustomer);
 
         String responseString = mockMvc.perform(patch("/api/v1/customers/1")
-                        .contentType(MediaType.APPLICATION_JSON).content(resultMapper))
+                        .contentType(MediaType.APPLICATION_JSON).content(resultMapper).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName").value(returnedCustomer.getFirstName()))
                 .andExpect(jsonPath("$.lastName").value(returnedCustomer.getLastName()))
