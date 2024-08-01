@@ -1,7 +1,5 @@
 package com.mananluvtocode.SpringMVC.services;
-
-import com.mananluvtocode.SpringMVC.api.model.CustomerDTO;
-import com.mananluvtocode.SpringMVC.domain.Customer;
+import com.mananluvtocode.xmlPackage.CustomerDTO;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.mananluvtocode.SpringMVC.controllers;
-import com.mananluvtocode.SpringMVC.api.model.CustomerDTO;
-import com.mananluvtocode.SpringMVC.api.model.CustomerListDTO;
+import com.mananluvtocode.xmlPackage.CustomerDTO;
 import com.mananluvtocode.SpringMVC.services.CustomerService;
+import com.mananluvtocode.xmlPackage.CustomerListDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +21,10 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.OK)
     CustomerListDTO getAllCustomers() {
         // return new ResponseEntity<>(new CustomerListDTO(customerService.getAllCustomers()), HttpStatus.OK);
-        return new CustomerListDTO(customerService.getAllCustomers());
+        CustomerListDTO customerListDTO = new CustomerListDTO();
+        customerListDTO.getCustomers().addAll(customerService.getAllCustomers());
+        return customerListDTO;
+//        return new CustomerListDTO(customerService.getAllCustomers());
     }
 
     @GetMapping("{firstName}")
