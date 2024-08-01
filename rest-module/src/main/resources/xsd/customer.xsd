@@ -1,0 +1,24 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="id" type="xs:byte"/>
+    <xs:element name="firstName" type="xs:string"/>
+    <xs:element name="lastName" type="xs:string"/>
+    <xs:element name="customer_url" type="xs:string"/>
+    <xs:element name="customers">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="id" minOccurs="0"/>
+                <xs:element ref="firstName" minOccurs="0"/>
+                <xs:element ref="lastName" minOccurs="0"/>
+                <xs:element ref="customer_url" minOccurs="0"/>
+                <xs:element ref="customers" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CustomerListDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="customers"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
