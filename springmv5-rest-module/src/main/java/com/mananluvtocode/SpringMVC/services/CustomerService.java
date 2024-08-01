@@ -1,5 +1,5 @@
 package com.mananluvtocode.SpringMVC.services;
-import com.mananluvtocode.xmlPackage.CustomerDTO;
+import com.mananluvtocode.CustomerDTO;
 
 import java.util.List;
 

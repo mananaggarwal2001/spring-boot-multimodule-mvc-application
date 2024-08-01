@@ -1,6 +1,6 @@
 package com.mananluvtocode.SpringMVC.mapper;
 
-import com.mananluvtocode.SpringMVC.api.model.CustomerDTO;
+import com.mananluvtocode.CustomerDTO;
 import com.mananluvtocode.SpringMVC.domain.Customer;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

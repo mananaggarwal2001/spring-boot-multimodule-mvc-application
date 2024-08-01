@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>springmv5-rest-module</artifactId>
+    <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>com.mananluvtocode</groupId>

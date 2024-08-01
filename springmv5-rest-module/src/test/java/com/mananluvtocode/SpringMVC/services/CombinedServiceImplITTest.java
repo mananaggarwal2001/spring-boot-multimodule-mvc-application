@@ -1,6 +1,6 @@
 package com.mananluvtocode.SpringMVC.services;
 
-import com.mananluvtocode.SpringMVC.api.model.CustomerDTO;
+import com.mananluvtocode.CustomerDTO;
 import com.mananluvtocode.SpringMVC.api.model.VendorDTO;
 import com.mananluvtocode.SpringMVC.bootstrap.Bootstrap;
 import com.mananluvtocode.SpringMVC.domain.Customer;

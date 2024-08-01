@@ -37,7 +37,7 @@
                 </executions>
                 <configuration>
                     <!-- The package of your generated sources -->
-                    <packageName>com.mananluvtocode.xmlPackage</packageName>
+                    <packageName>com.mananluvtocode</packageName>
                     <sources>
                         <source>src/main/resources/xsd</source>
                     </sources>

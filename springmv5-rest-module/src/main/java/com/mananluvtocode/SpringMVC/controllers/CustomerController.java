@@ -1,7 +1,7 @@
 package com.mananluvtocode.SpringMVC.controllers;
-import com.mananluvtocode.xmlPackage.CustomerDTO;
+import com.mananluvtocode.CustomerDTO;
 import com.mananluvtocode.SpringMVC.services.CustomerService;
-import com.mananluvtocode.xmlPackage.CustomerListDTO;
+import com.mananluvtocode.CustomerListDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

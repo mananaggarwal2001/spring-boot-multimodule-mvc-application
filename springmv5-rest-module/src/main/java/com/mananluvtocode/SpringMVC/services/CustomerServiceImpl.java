@@ -1,10 +1,10 @@
 package com.mananluvtocode.SpringMVC.services;
 
-import com.mananluvtocode.SpringMVC.api.model.CustomerDTO;
 import com.mananluvtocode.SpringMVC.controllers.CustomerController;
 import com.mananluvtocode.SpringMVC.domain.Customer;
 import com.mananluvtocode.SpringMVC.mapper.CustomerMapper;
 import com.mananluvtocode.SpringMVC.repositories.CustomerRepository;
+import com.mananluvtocode.CustomerDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -81,7 +81,7 @@ public class CustomerServiceImpl implements CustomerService {
                 customerElement.setLastName(customerDTO.getLastName());
             }
             CustomerDTO resultDTOClass = customerMapper.customerToCustomerDTO(customerElement);
-            resultDTOClass.setCustomer_url(customerUrlSetter(customerElement.getId()));
+            resultDTOClass.setCustomerUrl(customerUrlSetter(customerElement.getId()));
             return resultDTOClass;
         }).orElseThrow(ResourceNotFoundException::new);
     }

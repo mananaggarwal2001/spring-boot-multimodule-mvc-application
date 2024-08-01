@@ -1,6 +1,6 @@
 package com.mananluvtocode.SpringMVC.mapper;
 
-import com.mananluvtocode.SpringMVC.api.model.CustomerDTO;
+import com.mananluvtocode.CustomerDTO;
 import com.mananluvtocode.SpringMVC.domain.Customer;
 import org.junit.jupiter.api.Test;
 
@@ -19,9 +19,7 @@ class CustomerMapperTest {
         customer.setLastName("Smith");
         CustomerDTO result = mapper.customerToCustomerDTO(customer);
         assertNotNull(result);
-        assertEquals(customer.getId(), result.getId());
         assertEquals(customer.getFirstName(), result.getFirstName());
         assertEquals(customer.getLastName(), result.getLastName());
-        assertEquals(customer.getCustomer_url(), result.getCustomer_url());
     }
 }

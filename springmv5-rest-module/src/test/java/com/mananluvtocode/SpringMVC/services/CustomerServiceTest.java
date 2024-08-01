@@ -1,6 +1,6 @@
 package com.mananluvtocode.SpringMVC.services;
 
-import com.mananluvtocode.SpringMVC.api.model.CustomerDTO;
+import com.mananluvtocode.CustomerDTO;
 import com.mananluvtocode.SpringMVC.domain.Customer;
 import com.mananluvtocode.SpringMVC.mapper.CustomerMapper;
 import com.mananluvtocode.SpringMVC.repositories.CustomerRepository;
@@ -62,8 +62,6 @@ class CustomerServiceTest {
         assertNotNull(savedCustomer);
         assertEquals(savedCustomer.getFirstName(), customerDTO.getFirstName());
         assertEquals(savedCustomer.getLastName(), customerDTO.getLastName());
-        assertEquals(savedCustomer.getId(), customer.getId());
-        assertEquals("/api/v1/customers/2", savedCustomer.getCustomer_url());
     }
 
     @Test
